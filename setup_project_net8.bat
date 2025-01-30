@@ -5,7 +5,7 @@ setlocal enabledelayedexpansion
 set /p PROJECT_NAME=Digite o nome do projeto: 
 
 :: Solicita o nome de usuário do banco de dados
-set /p DB_USER=Digite o nome de usuário do banco de dados: 
+set /p DB_USER=Digite o nome de usuario do banco de dados: 
 
 :: Solicita a senha do banco de dados
 set /p DB_PASSWORD=Digite a senha do banco de dados: 
