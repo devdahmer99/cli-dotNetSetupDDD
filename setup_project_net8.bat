@@ -19,22 +19,22 @@ if "%~1"=="" (
 set PROJECT_DIR=%~1
 
 :: Criando a pasta do projeto no diretório especificado
-mkdir "%PROJECT_DIR%\%PROJECT_NAME%" || exit /b 1
-cd /d "%PROJECT_DIR%\%PROJECT_NAME%" || exit /b 1
+mkdir "%PROJECT_DIR%\%PROJECT_NAME%"
+cd /d "%PROJECT_DIR%\%PROJECT_NAME%"
 
 :: Criando a solução do projeto dentro do diretório correto
-dotnet new sln -n %PROJECT_NAME% || exit /b 1
+dotnet new sln -n %PROJECT_NAME%
 
 :: Criando a pasta src para os projetos
-mkdir src || exit /b 1
+mkdir src
 
 :: Criando os projetos dentro do diretório src:
-dotnet new webapi -n %PROJECT_NAME%.API --use-controllers -o src\%PROJECT_NAME%.API || exit /b 1
-dotnet new classlib -n %PROJECT_NAME%.Aplicacao -o src\%PROJECT_NAME%.Aplicacao || exit /b 1
-dotnet new classlib -n %PROJECT_NAME%.Dominio -o src\%PROJECT_NAME%.Dominio || exit /b 1
-dotnet new classlib -n %PROJECT_NAME%.Infra -o src\%PROJECT_NAME%.Infra || exit /b 1
-dotnet new classlib -n %PROJECT_NAME%.Comunicacao -o src\%PROJECT_NAME%.Comunicacao || exit /b 1
-dotnet new classlib -n %PROJECT_NAME%.Exception -o src\%PROJECT_NAME%.Exception || exit /b 1
+dotnet new webapi -n %PROJECT_NAME%.API --use-controllers -o src\%PROJECT_NAME%.API
+dotnet new classlib -n %PROJECT_NAME%.Aplicacao -o src\%PROJECT_NAME%.Aplicacao
+dotnet new classlib -n %PROJECT_NAME%.Dominio -o src\%PROJECT_NAME%.Dominio
+dotnet new classlib -n %PROJECT_NAME%.Infra -o src\%PROJECT_NAME%.Infra
+dotnet new classlib -n %PROJECT_NAME%.Comunicacao -o src\%PROJECT_NAME%.Comunicacao
+dotnet new classlib -n %PROJECT_NAME%.Exception -o src\%PROJECT_NAME%.Exception
 
 :: Criando a estrutura de pastas para cada projeto
 mkdir src\%PROJECT_NAME%.Aplicacao\AutoMapper
@@ -66,21 +66,21 @@ mkdir src\%PROJECT_NAME%.Exception\ExceptionBase
 cd /d "%PROJECT_DIR%\%PROJECT_NAME%"
 
 :: Adicionando os projetos na solução
-dotnet sln %PROJECT_NAME%.sln add src\%PROJECT_NAME%.API\%PROJECT_NAME%.API.csproj || exit /b 1
-dotnet sln %PROJECT_NAME%.sln add src\%PROJECT_NAME%.Aplicacao\%PROJECT_NAME%.Aplicacao.csproj || exit /b 1
-dotnet sln %PROJECT_NAME%.sln add src\%PROJECT_NAME%.Dominio\%PROJECT_NAME%.Dominio.csproj || exit /b 1
-dotnet sln %PROJECT_NAME%.sln add src\%PROJECT_NAME%.Infra\%PROJECT_NAME%.Infra.csproj || exit /b 1
-dotnet sln %PROJECT_NAME%.sln add src\%PROJECT_NAME%.Comunicacao\%PROJECT_NAME%.Comunicacao.csproj || exit /b 1
-dotnet sln %PROJECT_NAME%.sln add src\%PROJECT_NAME%.Exception\%PROJECT_NAME%.Exception.csproj || exit /b 1
+dotnet sln %PROJECT_NAME%.sln add src\%PROJECT_NAME%.API\%PROJECT_NAME%.API.csproj
+dotnet sln %PROJECT_NAME%.sln add src\%PROJECT_NAME%.Aplicacao\%PROJECT_NAME%.Aplicacao.csproj
+dotnet sln %PROJECT_NAME%.sln add src\%PROJECT_NAME%.Dominio\%PROJECT_NAME%.Dominio.csproj
+dotnet sln %PROJECT_NAME%.sln add src\%PROJECT_NAME%.Infra\%PROJECT_NAME%.Infra.csproj
+dotnet sln %PROJECT_NAME%.sln add src\%PROJECT_NAME%.Comunicacao\%PROJECT_NAME%.Comunicacao.csproj
+dotnet sln %PROJECT_NAME%.sln add src\%PROJECT_NAME%.Exception\%PROJECT_NAME%.Exception.csproj
 
 :: Adicionando as referências entre cada projeto:
-dotnet add src\%PROJECT_NAME%.API\%PROJECT_NAME%.API.csproj reference src\%PROJECT_NAME%.Aplicacao\%PROJECT_NAME%.Aplicacao.csproj || exit /b 1
-dotnet add src\%PROJECT_NAME%.API\%PROJECT_NAME%.API.csproj reference src\%PROJECT_NAME%.Comunicacao\%PROJECT_NAME%.Comunicacao.csproj || exit /b 1
-dotnet add src\%PROJECT_NAME%.API\%PROJECT_NAME%.API.csproj reference src\%PROJECT_NAME%.Exception\%PROJECT_NAME%.Exception.csproj || exit /b 1
-dotnet add src\%PROJECT_NAME%.Aplicacao\%PROJECT_NAME%.Aplicacao.csproj reference src\%PROJECT_NAME%.Dominio\%PROJECT_NAME%.Dominio.csproj || exit /b 1
-dotnet add src\%PROJECT_NAME%.Aplicacao\%PROJECT_NAME%.Aplicacao.csproj reference src\%PROJECT_NAME%.Infra\%PROJECT_NAME%.Infra.csproj || exit /b 1
-dotnet add src\%PROJECT_NAME%.Infra\%PROJECT_NAME%.Infra.csproj reference src\%PROJECT_NAME%.Dominio\%PROJECT_NAME%.Dominio.csproj || exit /b 1
-dotnet add src\%PROJECT_NAME%.Dominio\%PROJECT_NAME%.Dominio.csproj reference src\%PROJECT_NAME%.Comunicacao\%PROJECT_NAME%.Comunicacao.csproj || exit /b 1
+dotnet add src\%PROJECT_NAME%.API\%PROJECT_NAME%.API.csproj reference src\%PROJECT_NAME%.Aplicacao\%PROJECT_NAME%.Aplicacao.csproj
+dotnet add src\%PROJECT_NAME%.API\%PROJECT_NAME%.API.csproj reference src\%PROJECT_NAME%.Comunicacao\%PROJECT_NAME%.Comunicacao.csproj
+dotnet add src\%PROJECT_NAME%.API\%PROJECT_NAME%.API.csproj reference src\%PROJECT_NAME%.Exception\%PROJECT_NAME%.Exception.csproj
+dotnet add src\%PROJECT_NAME%.Aplicacao\%PROJECT_NAME%.Aplicacao.csproj reference src\%PROJECT_NAME%.Dominio\%PROJECT_NAME%.Dominio.csproj
+dotnet add src\%PROJECT_NAME%.Aplicacao\%PROJECT_NAME%.Aplicacao.csproj reference src\%PROJECT_NAME%.Infra\%PROJECT_NAME%.Infra.csproj
+dotnet add src\%PROJECT_NAME%.Infra\%PROJECT_NAME%.Infra.csproj reference src\%PROJECT_NAME%.Dominio\%PROJECT_NAME%.Dominio.csproj
+dotnet add src\%PROJECT_NAME%.Dominio\%PROJECT_NAME%.Dominio.csproj reference src\%PROJECT_NAME%.Comunicacao\%PROJECT_NAME%.Comunicacao.csproj
 
 :: Instalando os pacotes necessários
 dotnet add src\%PROJECT_NAME%.API\%PROJECT_NAME%.API.csproj package AutoMapper.Extensions.Microsoft.DependencyInjection --version 12.0.0
@@ -98,10 +98,10 @@ dotnet add src\%PROJECT_NAME%.Infra\%PROJECT_NAME%.Infra.csproj package Microsof
 
 :: Criando o arquivo README.md
 echo # %PROJECT_NAME%> README.md
-echo Este projeto segue o padrão DDD com as seguintes camadas: Aplicacao, Dominio, Infra, Comunicacao e Exception.>> README.md || exit /b 1
+echo Este projeto segue o padrão DDD com as seguintes camadas: Aplicacao, Dominio, Infra, Comunicacao e Exception.>> README.md
 
 :: Criando o arquivo .gitignore
-echo bin/> .gitignore || exit /b 1
+echo bin/> .gitignore
 echo obj/>> .gitignore
 echo .vs/>> .gitignore
 echo **/*.user>> .gitignore
@@ -113,258 +113,175 @@ git add .
 git commit -m "Initial commit"
 
 :: Criando a entidade Usuario no projeto Dominio
-echo Criando a entidade Usuario no projeto Dominio
-(
-    echo using System.ComponentModel.DataAnnotations;
-    echo namespace %PROJECT_NAME%.Dominio.Entidades {
-    echo     public class Usuario {
-    echo         [Key]
-    echo         public int Id { get; set; }
-    echo         [Required]
-    echo         public string Nome { get; set; }
-    echo         [Required]
-    echo         [EmailAddress]
-    echo         public string Email { get; set; }
-    echo         [Required]
-    echo         public string Senha { get; set; }
-    echo     }
-    echo }
-) > src\%PROJECT_NAME%.Dominio\Entidades\Usuario.cs 2>> error.log
-if errorlevel 1 (
-    echo Erro ao criar a entidade Usuario no projeto Dominio
-    exit /b 1
-)
+echo using System.ComponentModel.DataAnnotations;> src\%PROJECT_NAME%.Dominio\Entidades\Usuario.cs
+echo namespace %PROJECT_NAME%.Dominio.Entidades {>> src\%PROJECT_NAME%.Dominio\Entidades\Usuario.cs
+echo     public class Usuario {>> src\%PROJECT_NAME%.Dominio\Entidades\Usuario.cs
+echo         [Key]>> src\%PROJECT_NAME%.Dominio\Entidades\Usuario.cs
+echo         public int Id { get; set; }>> src\%PROJECT_NAME%.Dominio\Entidades\Usuario.cs
+echo         [Required]>> src\%PROJECT_NAME%.Dominio\Entidades\Usuario.cs
+echo         public string Nome { get; set; }>> src\%PROJECT_NAME%.Dominio\Entidades\Usuario.cs
+echo         [Required]>> src\%PROJECT_NAME%.Dominio\Entidades\Usuario.cs
+echo         [EmailAddress]>> src\%PROJECT_NAME%.Dominio\Entidades\Usuario.cs
+echo         public string Email { get; set; }>> src\%PROJECT_NAME%.Dominio\Entidades\Usuario.cs
+echo         [Required]>> src\%PROJECT_NAME%.Dominio\Entidades\Usuario.cs
+echo         public string Senha { get; set; }>> src\%PROJECT_NAME%.Dominio\Entidades\Usuario.cs
+echo     }>> src\%PROJECT_NAME%.Dominio\Entidades\Usuario.cs
+echo }>> src\%PROJECT_NAME%.Dominio\Entidades\Usuario.cs
 
 :: Configurando o AppDbContext no projeto Infra
-echo Configurando o AppDbContext no projeto Infra
-(
-    echo using Microsoft.EntityFrameworkCore;
-    echo using %PROJECT_NAME%.Dominio.Entidades;
-    echo namespace %PROJECT_NAME%.Infra.DataAccess {
-    echo     public class AppDbContext : DbContext {
-    echo         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
-    echo         public DbSet<Usuario> Usuarios { get; set; }
-    echo     }
-    echo }
-) > src\%PROJECT_NAME%.Infra\DataAccess\AppDbContext.cs 2>> error.log
-if errorlevel 1 (
-    echo Erro ao configurar o AppDbContext no projeto Infra
-    exit /b 1
-)
+echo using Microsoft.EntityFrameworkCore;> src\%PROJECT_NAME%.Infra\DataAccess\AppDbContext.cs
+echo using %PROJECT_NAME%.Dominio.Entidades;>> src\%PROJECT_NAME%.Infra\DataAccess\AppDbContext.cs
+echo namespace %PROJECT_NAME%.Infra.DataAccess {>> src\%PROJECT_NAME%.Infra\DataAccess\AppDbContext.cs
+echo     public class AppDbContext : DbContext {>> src\%PROJECT_NAME%.Infra\DataAccess\AppDbContext.cs
+echo         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }>> src\%PROJECT_NAME%.Infra\DataAccess\AppDbContext.cs
+echo         public DbSet<Usuario> Usuarios { get; set; }>> src\%PROJECT_NAME%.Infra\DataAccess\AppDbContext.cs
+echo     }>> src\%PROJECT_NAME%.Infra\DataAccess\AppDbContext.cs
+echo }>> src\%PROJECT_NAME%.Infra\DataAccess\AppDbContext.cs
 
 :: Criando o repositório no projeto Infra
-echo Criando o repositório no projeto Infra
-(
-    echo using System.Threading.Tasks;
-    echo using %PROJECT_NAME%.Dominio.Entidades;
-    echo namespace %PROJECT_NAME%.Infra.DataAccess {
-    echo     public interface IUsuarioRepository {
-    echo         Task AdicionarUsuarioAsync(Usuario usuario);
-    echo     }
-    echo }
-) > src\%PROJECT_NAME%.Infra\DataAccess\IUsuarioRepository.cs 2>> error.log
-if errorlevel 1 (
-    echo Erro ao criar o repositório no projeto Infra
-    exit /b 1
-)
+echo using System.Threading.Tasks;> src\%PROJECT_NAME%.Infra\DataAccess\IUsuarioRepository.cs
+echo using %PROJECT_NAME%.Dominio.Entidades;>> src\%PROJECT_NAME%.Infra\DataAccess\IUsuarioRepository.cs
+echo namespace %PROJECT_NAME%.Infra.DataAccess {>> src\%PROJECT_NAME%.Infra\DataAccess\IUsuarioRepository.cs
+echo     public interface IUsuarioRepository {>> src\%PROJECT_NAME%.Infra\DataAccess\IUsuarioRepository.cs
+echo         Task AdicionarUsuarioAsync(Usuario usuario);>> src\%PROJECT_NAME%.Infra\DataAccess\IUsuarioRepository.cs
+echo     }>> src\%PROJECT_NAME%.Infra\DataAccess\IUsuarioRepository.cs
+echo }>> src\%PROJECT_NAME%.Infra\DataAccess\IUsuarioRepository.cs
 
-(
-    echo using System.Threading.Tasks;
-    echo using %PROJECT_NAME%.Dominio.Entidades;
-    echo using Microsoft.EntityFrameworkCore;
-    echo namespace %PROJECT_NAME%.Infra.DataAccess {
-    echo     public class UsuarioRepository : IUsuarioRepository {
-    echo         private readonly AppDbContext _context;
-    echo         public UsuarioRepository(AppDbContext context) {
-    echo             _context = context;
-    echo         }
-    echo         public async Task AdicionarUsuarioAsync(Usuario usuario) {
-    echo             await _context.Usuarios.AddAsync(usuario);
-    echo             await _context.SaveChangesAsync();
-    echo         }
-    echo     }
-    echo }
-) > src\%PROJECT_NAME%.Infra\DataAccess\UsuarioRepository.cs 2>> error.log
-if errorlevel 1 (
-    echo Erro ao criar o repositório Usuario no projeto Infra
-    exit /b 1
-)
+echo using System.Threading.Tasks;> src\%PROJECT_NAME%.Infra\DataAccess\UsuarioRepository.cs
+echo using %PROJECT_NAME%.Dominio.Entidades;>> src\%PROJECT_NAME%.Infra\DataAccess\UsuarioRepository.cs
+echo using Microsoft.EntityFrameworkCore;>> src\%PROJECT_NAME%.Infra\DataAccess\UsuarioRepository.cs
+echo namespace %PROJECT_NAME%.Infra.DataAccess {>> src\%PROJECT_NAME%.Infra\DataAccess\UsuarioRepository.cs
+echo     public class UsuarioRepository : IUsuarioRepository {>> src\%PROJECT_NAME%.Infra\DataAccess\UsuarioRepository.cs
+echo         private readonly AppDbContext _context;>> src\%PROJECT_NAME%.Infra\DataAccess\UsuarioRepository.cs
+echo         public UsuarioRepository(AppDbContext context) {>> src\%PROJECT_NAME%.Infra\DataAccess\UsuarioRepository.cs
+echo             _context = context;>> src\%PROJECT_NAME%.Infra\DataAccess\UsuarioRepository.cs
+echo         }>> src\%PROJECT_NAME%.Infra\DataAccess\UsuarioRepository.cs
+echo         public async Task AdicionarUsuarioAsync(Usuario usuario) {>> src\%PROJECT_NAME%.Infra\DataAccess\UsuarioRepository.cs
+echo             await _context.Usuarios.AddAsync(usuario);>> src\%PROJECT_NAME%.Infra\DataAccess\UsuarioRepository.cs
+echo             await _context.SaveChangesAsync();>> src\%PROJECT_NAME%.Infra\DataAccess\UsuarioRepository.cs
+echo         }>> src\%PROJECT_NAME%.Infra\DataAccess\UsuarioRepository.cs
+echo     }>> src\%PROJECT_NAME%.Infra\DataAccess\UsuarioRepository.cs
+echo }>> src\%PROJECT_NAME%.Infra\DataAccess\UsuarioRepository.cs
 
 :: Configurando o AutoMapper no projeto Aplicacao
-echo Configurando o AutoMapper no projeto Aplicacao
-(
-    echo using AutoMapper;
-    echo using %PROJECT_NAME%.Dominio.Entidades;
-    echo using %PROJECT_NAME%.Comunicacao.Requests;
-    echo using %PROJECT_NAME%.Comunicacao.Responses;
-    echo namespace %PROJECT_NAME%.Aplicacao.AutoMapper {
-    echo     public class UsuarioProfile : Profile {
-    echo         public UsuarioProfile() {
-    echo             CreateMap<Usuario, UsuarioResponse>();
-    echo             CreateMap<UsuarioRequest, Usuario>();
-    echo         }
-    echo     }
-    echo }
-) > src\%PROJECT_NAME%.Aplicacao\AutoMapper\UsuarioProfile.cs 2>> error.log
-if errorlevel 1 (
-    echo Erro ao configurar o AutoMapper no projeto Aplicacao
-    exit /b 1
-)
+echo using AutoMapper;> src\%PROJECT_NAME%.Aplicacao\AutoMapper\UsuarioProfile.cs
+echo using %PROJECT_NAME%.Dominio.Entidades;>> src\%PROJECT_NAME%.Aplicacao\AutoMapper\UsuarioProfile.cs
+echo using %PROJECT_NAME%.Comunicacao.Requests;>> src\%PROJECT_NAME%.Aplicacao\AutoMapper\UsuarioProfile.cs
+echo using %PROJECT_NAME%.Comunicacao.Responses;>> src\%PROJECT_NAME%.Aplicacao\AutoMapper\UsuarioProfile.cs
+echo namespace %PROJECT_NAME%.Aplicacao.AutoMapper {>> src\%PROJECT_NAME%.Aplicacao\AutoMapper\UsuarioProfile.cs
+echo     public class UsuarioProfile : Profile {>> src\%PROJECT_NAME%.Aplicacao\AutoMapper\UsuarioProfile.cs
+echo         public UsuarioProfile() {>> src\%PROJECT_NAME%.Aplicacao\AutoMapper\UsuarioProfile.cs
+echo             CreateMap<Usuario, UsuarioResponse>();>> src\%PROJECT_NAME%.Aplicacao\AutoMapper\UsuarioProfile.cs
+echo             CreateMap<UsuarioRequest, Usuario>();>> src\%PROJECT_NAME%.Aplicacao\AutoMapper\UsuarioProfile.cs
+echo         }>> src\%PROJECT_NAME%.Aplicacao\AutoMapper\UsuarioProfile.cs
+echo     }>> src\%PROJECT_NAME%.Aplicacao\AutoMapper\UsuarioProfile.cs
+echo }>> src\%PROJECT_NAME%.Aplicacao\AutoMapper\UsuarioProfile.cs
 
 :: Criando o UseCase no projeto Aplicacao
-echo Criando o UseCase no projeto Aplicacao
-(
-    echo using System.Threading.Tasks;
-    echo using %PROJECT_NAME%.Dominio.Entidades;
-    echo using %PROJECT_NAME%.Infra.DataAccess;
-    echo namespace %PROJECT_NAME%.Aplicacao.UseCase {
-    echo     public class AdicionarUsuarioUseCase {
-    echo         private readonly IUsuarioRepository _usuarioRepository;
-    echo         public AdicionarUsuarioUseCase(IUsuarioRepository usuarioRepository) {
-    echo             _usuarioRepository = usuarioRepository;
-    echo         }
-    echo         public async Task Execute(Usuario usuario) {
-    echo             await _usuarioRepository.AdicionarUsuarioAsync(usuario);
-    echo         }
-    echo     }
-    echo }
-) > src\%PROJECT_NAME%.Aplicacao\UseCase\AdicionarUsuarioUseCase.cs 2>> error.log
-if errorlevel 1 (
-    echo Erro ao criar o UseCase no projeto Aplicacao
-    exit /b 1
-)
+echo using System.Threading.Tasks;> src\%PROJECT_NAME%.Aplicacao\UseCase\AdicionarUsuarioUseCase.cs
+echo using %PROJECT_NAME%.Dominio.Entidades;>> src\%PROJECT_NAME%.Aplicacao\UseCase\AdicionarUsuarioUseCase.cs
+echo using %PROJECT_NAME%.Infra.DataAccess;>> src\%PROJECT_NAME%.Aplicacao\UseCase\AdicionarUsuarioUseCase.cs
+echo namespace %PROJECT_NAME%.Aplicacao.UseCase {>> src\%PROJECT_NAME%.Aplicacao\UseCase\AdicionarUsuarioUseCase.cs
+echo     public class AdicionarUsuarioUseCase {>> src\%PROJECT_NAME%.Aplicacao\UseCase\AdicionarUsuarioUseCase.cs
+echo         private readonly IUsuarioRepository _usuarioRepository;>> src\%PROJECT_NAME%.Aplicacao\UseCase\AdicionarUsuarioUseCase.cs
+echo         public AdicionarUsuarioUseCase(IUsuarioRepository usuarioRepository) {>> src\%PROJECT_NAME%.Aplicacao\UseCase\AdicionarUsuarioUseCase.cs
+echo             _usuarioRepository = usuarioRepository;>> src\%PROJECT_NAME%.Aplicacao\UseCase\AdicionarUsuarioUseCase.cs
+echo         }>> src\%PROJECT_NAME%.Aplicacao\UseCase\AdicionarUsuarioUseCase.cs
+echo         public async Task Execute(Usuario usuario) {>> src\%PROJECT_NAME%.Aplicacao\UseCase\AdicionarUsuarioUseCase.cs
+echo             await _usuarioRepository.AdicionarUsuarioAsync(usuario);>> src\%PROJECT_NAME%.Aplicacao\UseCase\AdicionarUsuarioUseCase.cs
+echo         }>> src\%PROJECT_NAME%.Aplicacao\UseCase\AdicionarUsuarioUseCase.cs
+echo     }>> src\%PROJECT_NAME%.Aplicacao\UseCase\AdicionarUsuarioUseCase.cs
+echo }>> src\%PROJECT_NAME%.Aplicacao\UseCase\AdicionarUsuarioUseCase.cs
 
 :: Configurando o Program.cs no projeto API para usar o MySQL com a referência do AppDbContext
-echo Configurando o Program.cs no projeto API para usar o MySQL
-(
-    echo using Microsoft.EntityFrameworkCore;
-    echo using %PROJECT_NAME%.Infra.DataAccess;
-    echo using %PROJECT_NAME%.Aplicacao.UseCase;
-    echo using AutoMapper;
-    echo var builder = WebApplication.CreateBuilder(args);
-    echo var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-    echo builder.Services.AddDbContext<AppDbContext>(options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
-    echo builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
-    echo builder.Services.AddScoped<AdicionarUsuarioUseCase>();
-    echo builder.Services.AddAutoMapper(typeof(Program));
-    echo builder.Services.AddControllers();
-    echo var app = builder.Build();
-    echo if (app.Environment.IsDevelopment()) { app.UseDeveloperExceptionPage(); }
-    echo app.UseHttpsRedirection();
-    echo app.UseAuthorization();
-    echo app.MapControllers();
-    echo app.Run();
-) > src\%PROJECT_NAME%.API\Program.cs 2>> error.log
-if errorlevel 1 (
-    echo Erro ao configurar o Program.cs no projeto API
-    exit /b 1
-)
+echo using Microsoft.EntityFrameworkCore;> src\%PROJECT_NAME%.API\Program.cs
+echo using %PROJECT_NAME%.Infra.DataAccess;>> src\%PROJECT_NAME%.API\Program.cs
+echo using %PROJECT_NAME%.Aplicacao.UseCase;>> src\%PROJECT_NAME%.API\Program.cs
+echo using AutoMapper;>> src\%PROJECT_NAME%.API\Program.cs
+echo var builder = WebApplication.CreateBuilder(args);>> src\%PROJECT_NAME%.API\Program.cs
+echo var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");>> src\%PROJECT_NAME%.API\Program.cs
+echo builder.Services.AddDbContext<AppDbContext>(options =>>> src\%PROJECT_NAME%.API\Program.cs
+echo     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));>> src\%PROJECT_NAME%.API\Program.cs
+echo builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();>> src\%PROJECT_NAME%.API\Program.cs
+echo builder.Services.AddScoped<AdicionarUsuarioUseCase>();>> src\%PROJECT_NAME%.API\Program.cs
+echo builder.Services.AddAutoMapper(typeof(Program));>> src\%PROJECT_NAME%.API\Program.cs
+echo builder.Services.AddControllers();>> src\%PROJECT_NAME%.API\Program.cs
+echo var app = builder.Build();>> src\%PROJECT_NAME%.API\Program.cs
+echo if (app.Environment.IsDevelopment()) { app.UseDeveloperExceptionPage(); }>> src\%PROJECT_NAME%.API\Program.cs
+echo app.UseHttpsRedirection();>> src\%PROJECT_NAME%.API\Program.cs
+echo app.UseAuthorization();>> src\%PROJECT_NAME%.API\Program.cs
+echo app.MapControllers();>> src\%PROJECT_NAME%.API\Program.cs
+echo app.Run();>> src\%PROJECT_NAME%.API\Program.cs
 
 :: Criando o controller no projeto API
-echo Criando o controller no projeto API
-(
-    echo using Microsoft.AspNetCore.Mvc;
-    echo using %PROJECT_NAME%.Aplicacao.UseCase;
-    echo using %PROJECT_NAME%.Comunicacao.Requests;
-    echo using %PROJECT_NAME%.Comunicacao.Responses;
-    echo using AutoMapper;
-    echo namespace %PROJECT_NAME%.API.Controllers {
-    echo     [ApiController]
-    echo     [Route("api/[controller]")]
-    echo     public class UsuarioController : ControllerBase {
-    echo         private readonly AdicionarUsuarioUseCase _useCase;
-    echo         private readonly IMapper _mapper;
-    echo         public UsuarioController(AdicionarUsuarioUseCase useCase, IMapper mapper) {
-    echo             _useCase = useCase;
-    echo             _mapper = mapper;
-    echo         }
-    echo         [HttpPost]
-    echo         public async Task<ActionResult<UsuarioResponse>> Post(UsuarioRequest request) {
-    echo             var usuario = _mapper.Map<Usuario>(request);
-    echo             await _useCase.Execute(usuario);
-    echo             var response = _mapper.Map<UsuarioResponse>(usuario);
-    echo             return CreatedAtAction(nameof(Post), new { id = usuario.Id }, response);
-    echo         }
-    echo     }
-    echo }
-) > src\%PROJECT_NAME%.API\Controllers\UsuarioController.cs 2>> error.log
-if errorlevel 1 (
-    echo Erro ao criar o controller no projeto API
-    exit /b 1
-)
+echo using Microsoft.AspNetCore.Mvc;> src\%PROJECT_NAME%.API\Controllers\UsuarioController.cs
+echo using %PROJECT_NAME%.Aplicacao.UseCase;>> src\%PROJECT_NAME%.API\Controllers\UsuarioController.cs
+echo using %PROJECT_NAME%.Comunicacao.Requests;>> src\%PROJECT_NAME%.API\Controllers\UsuarioController.cs
+echo using %PROJECT_NAME%.Comunicacao.Responses;>> src\%PROJECT_NAME%.API\Controllers\UsuarioController.cs
+echo using AutoMapper;>> src\%PROJECT_NAME%.API\Controllers\UsuarioController.cs
+echo namespace %PROJECT_NAME%.API.Controllers {>> src\%PROJECT_NAME%.API\Controllers\UsuarioController.cs
+echo     [ApiController]>> src\%PROJECT_NAME%.API\Controllers\UsuarioController.cs
+echo     [Route("api/[controller]")]>> src\%PROJECT_NAME%.API\Controllers\UsuarioController.cs
+echo     public class UsuarioController : ControllerBase {>> src\%PROJECT_NAME%.API\Controllers\UsuarioController.cs
+echo         private readonly AdicionarUsuarioUseCase _useCase;>> src\%PROJECT_NAME%.API\Controllers\UsuarioController.cs
+echo         private readonly IMapper _mapper;>> src\%PROJECT_NAME%.API\Controllers\UsuarioController.cs
+echo         public UsuarioController(AdicionarUsuarioUseCase useCase, IMapper mapper) {>> src\%PROJECT_NAME%.API\Controllers\UsuarioController.cs
+echo             _useCase = useCase;>> src\%PROJECT_NAME%.API\Controllers\UsuarioController.cs
+echo             _mapper = mapper;>> src\%PROJECT_NAME%.API\Controllers\UsuarioController.cs
+echo         }>> src\%PROJECT_NAME%.API\Controllers\UsuarioController.cs
+echo         [HttpPost]>> src\%PROJECT_NAME%.API\Controllers\UsuarioController.cs
+echo         public async Task<ActionResult<UsuarioResponse>> Post(UsuarioRequest request) {>> src\%PROJECT_NAME%.API\Controllers\UsuarioController.cs
+echo             var usuario = _mapper.Map<Usuario>(request);>> src\%PROJECT_NAME%.API\Controllers\UsuarioController.cs
+echo             await _useCase.Execute(usuario);>> src\%PROJECT_NAME%.API\Controllers\UsuarioController.cs
+echo             var response = _mapper.Map<UsuarioResponse>(usuario);>> src\%PROJECT_NAME%.API\Controllers\UsuarioController.cs
+echo             return CreatedAtAction(nameof(Post), new { id = usuario.Id }, response);>> src\%PROJECT_NAME%.API\Controllers\UsuarioController.cs
+echo         }>> src\%PROJECT_NAME%.API\Controllers\UsuarioController.cs
+echo     }>> src\%PROJECT_NAME%.API\Controllers\UsuarioController.cs
+echo }>> src\%PROJECT_NAME%.API\Controllers\UsuarioController.cs
 
 :: Criando a classe de Request no projeto Comunicacao
-echo Criando a classe de Request no projeto Comunicacao
-(
-    echo namespace %PROJECT_NAME%.Comunicacao.Requests {
-    echo     public class UsuarioRequest {
-    echo         public string Nome { get; set; }
-    echo         public string Email { get; set; }
-    echo         public string Senha { get; set; }
-    echo     }
-    echo }
-) > src\%PROJECT_NAME%.Comunicacao\Requests\UsuarioRequest.cs 2>> error.log
-if errorlevel 1 (
-    echo Erro ao criar a classe de Request no projeto Comunicacao
-    exit /b 1
-)
+echo namespace %PROJECT_NAME%.Comunicacao.Requests {> src\%PROJECT_NAME%.Comunicacao\Requests\UsuarioRequest.cs
+echo     public class UsuarioRequest {>> src\%PROJECT_NAME%.Comunicacao\Requests\UsuarioRequest.cs
+echo         public string Nome { get; set; }>> src\%PROJECT_NAME%.Comunicacao\Requests\UsuarioRequest.cs
+echo         public string Email { get; set; }>> src\%PROJECT_NAME%.Comunicacao\Requests\UsuarioRequest.cs
+echo         public string Senha { get; set; }>> src\%PROJECT_NAME%.Comunicacao\Requests\UsuarioRequest.cs
+echo     }>> src\%PROJECT_NAME%.Comunicacao\Requests\UsuarioRequest.cs
+echo }>> src\%PROJECT_NAME%.Comunicacao\Requests\UsuarioRequest.cs
 
 :: Criando a classe de Response no projeto Comunicacao
-echo Criando a classe de Response no projeto Comunicacao
-(
-    echo namespace %PROJECT_NAME%.Comunicacao.Responses {
-    echo     public class UsuarioResponse {
-    echo         public int Id { get; set; }
-    echo         public string Nome { get; set; }
-    echo         public string Email { get; set; }
-    echo     }
-    echo }
-) > src\%PROJECT_NAME%.Comunicacao\Responses\UsuarioResponse.cs 2>> error.log
-if errorlevel 1 (
-    echo Erro ao criar a classe de Response no projeto Comunicacao
-    exit /b 1
-)
+echo namespace %PROJECT_NAME%.Comunicacao.Responses {> src\%PROJECT_NAME%.Comunicacao\Responses\UsuarioResponse.cs
+echo     public class UsuarioResponse {>> src\%PROJECT_NAME%.Comunicacao\Responses\UsuarioResponse.cs
+echo         public int Id { get; set; }>> src\%PROJECT_NAME%.Comunicacao\Responses\UsuarioResponse.cs
+echo         public string Nome { get; set; }>> src\%PROJECT_NAME%.Comunicacao\Responses\UsuarioResponse.cs
+echo         public string Email { get; set; }>> src\%PROJECT_NAME%.Comunicacao\Responses\UsuarioResponse.cs
+echo     }>> src\%PROJECT_NAME%.Comunicacao\Responses\UsuarioResponse.cs
+echo }>> src\%PROJECT_NAME%.Comunicacao\Responses\UsuarioResponse.cs
 
 :: Criando as classes de injecao de dependencia no projeto Aplicacao
-echo Criando as classes de injecao de dependencia no projeto Aplicacao
-(
-    echo using Microsoft.Extensions.DependencyInjection;
-    echo using %PROJECT_NAME%.Aplicacao.UseCase;
-    echo namespace %PROJECT_NAME%.Aplicacao {
-    echo     public static class DependencyInjection {
-    echo         public static IServiceCollection AddApplicationServices(this IServiceCollection services) {
-    echo             services.AddScoped<AdicionarUsuarioUseCase>();
-    echo             return services;
-    echo         }
-    echo     }
-    echo }
-) > src\%PROJECT_NAME%.Aplicacao\DependencyInjection.cs 2>> error.log
-if errorlevel 1 (
-    echo Erro ao criar as classes de injecao de dependencia no projeto Aplicacao
-    exit /b 1
-)
+echo using Microsoft.Extensions.DependencyInjection;> src\%PROJECT_NAME%.Aplicacao\DependencyInjection.cs
+echo using %PROJECT_NAME%.Aplicacao.UseCase;>> src\%PROJECT_NAME%.Aplicacao\DependencyInjection.cs
+echo namespace %PROJECT_NAME%.Aplicacao {>> src\%PROJECT_NAME%.Aplicacao\DependencyInjection.cs
+echo     public static class DependencyInjection {>> src\%PROJECT_NAME%.Aplicacao\DependencyInjection.cs
+echo         public static IServiceCollection AddApplicationServices(this IServiceCollection services) {>> src\%PROJECT_NAME%.Aplicacao\DependencyInjection.cs
+echo             services.AddScoped<AdicionarUsuarioUseCase>();>> src\%PROJECT_NAME%.Aplicacao\DependencyInjection.cs
+echo             return services;>> src\%PROJECT_NAME%.Aplicacao\DependencyInjection.cs
+echo         }>> src\%PROJECT_NAME%.Aplicacao\DependencyInjection.cs
+echo     }>> src\%PROJECT_NAME%.Aplicacao\DependencyInjection.cs
+echo }>> src\%PROJECT_NAME%.Aplicacao\DependencyInjection.cs
 
 :: Criando as classes de injecao de dependencia no projeto Infra
-echo Criando as classes de injecao de dependencia no projeto Infra
-(
-    echo using Microsoft.Extensions.DependencyInjection;
-    echo using %PROJECT_NAME%.Infra.DataAccess;
-    echo namespace %PROJECT_NAME%.Infra {
-    echo     public static class DependencyInjection {
-    echo         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services) {
-    echo             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
-    echo             return services;
-    echo         }
-    echo     }
-    echo }
-) > src\%PROJECT_NAME%.Infra\DependencyInjection.cs 2>> error.log
-if errorlevel 1 (
-    echo Erro ao criar as classes de injecao de dependencia no projeto Infra
-    exit /b 1
-)
+echo using Microsoft.Extensions.DependencyInjection;> src\%PROJECT_NAME%.Infra\DependencyInjection.cs
+echo using %PROJECT_NAME%.Infra.DataAccess;>> src\%PROJECT_NAME%.Infra\DependencyInjection.cs
+echo namespace %PROJECT_NAME%.Infra {>> src\%PROJECT_NAME%.Infra\DependencyInjection.cs
+echo     public static class DependencyInjection {>> src\%PROJECT_NAME%.Infra\DependencyInjection.cs
+echo         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services) {>> src\%PROJECT_NAME%.Infra\DependencyInjection.cs
+echo             services.AddScoped<IUsuarioRepository, UsuarioRepository>();>> src\%PROJECT_NAME%.Infra\DependencyInjection.cs
+echo             return services;>> src\%PROJECT_NAME%.Infra\DependencyInjection.cs
+echo         }>> src\%PROJECT_NAME%.Infra\DependencyInjection.cs
+echo     }>> src\%PROJECT_NAME%.Infra\DependencyInjection.cs
+echo }>> src\%PROJECT_NAME%.Infra\DependencyInjection.cs
 
 :: Modificando o Program.cs para incluir os serviços de Aplicacao e Infra
-echo Modificando o Program.cs para incluir os serviços de Aplicacao e Infra
 (
     echo using Microsoft.EntityFrameworkCore;
     echo using %PROJECT_NAME%.Infra.DataAccess;
@@ -384,97 +301,64 @@ echo Modificando o Program.cs para incluir os serviços de Aplicacao e Infra
     echo app.UseAuthorization();
     echo app.MapControllers();
     echo app.Run();
-) > src\%PROJECT_NAME%.API\Program.cs 2>> error.log
-if errorlevel 1 (
-    echo Erro ao modificar o Program.cs para incluir os serviços de Aplicacao e Infra
-    exit /b 1
-)
+) > src\%PROJECT_NAME%.API\Program.cs
 
 :: Configurando a autenticação JWT no projeto Infra
-echo Configurando a autenticação JWT no projeto Infra
-(
-    echo using Microsoft.IdentityModel.Tokens;
-    echo using System;
-    echo using System.IdentityModel.Tokens.Jwt;
-    echo using System.Security.Claims;
-    echo using System.Text;
-    echo namespace %PROJECT_NAME%.Infra.Seguranca {
-    echo     public class JwtService {
-    echo         private readonly string _secret;
-    echo         private readonly string _expDate;
-    echo         public JwtService(string secret, string expDate) {
-    echo             _secret = secret;
-    echo             _expDate = expDate;
-    echo         }
-    echo         public string GenerateSecurityToken(string email) {
-    echo             var tokenHandler = new JwtSecurityTokenHandler();
-    echo             var key = Encoding.ASCII.GetBytes(_secret);
-    echo             var tokenDescriptor = new SecurityTokenDescriptor {
-    echo                 Subject = new ClaimsIdentity(new[] { new Claim(ClaimTypes.Email, email) }),
-    echo                 Expires = DateTime.UtcNow.AddMinutes(double.Parse(_expDate)),
-    echo                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-    echo             };
-    echo             var token = tokenHandler.CreateToken(tokenDescriptor);
-    echo             return tokenHandler.WriteToken(token);
-    echo         }
-    echo     }
-    echo }
-) > src\%PROJECT_NAME%.Infra\Seguranca\JwtService.cs 2>> error.log
-if errorlevel 1 (
-    echo Erro ao configurar a autenticação JWT no projeto Infra
-    exit /b 1
-)
+echo using Microsoft.IdentityModel.Tokens;> src\%PROJECT_NAME%.Infra\Seguranca\JwtService.cs
+echo using System;>> src\%PROJECT_NAME%.Infra\Seguranca\JwtService.cs
+echo using System.IdentityModel.Tokens.Jwt;>> src\%PROJECT_NAME%.Infra\Seguranca\JwtService.cs
+echo using System.Security.Claims;>> src\%PROJECT_NAME%.Infra\Seguranca\JwtService.cs
+echo using System.Text;>> src\%PROJECT_NAME%.Infra\Seguranca\JwtService.cs
+echo namespace %PROJECT_NAME%.Infra.Seguranca {>> src\%PROJECT_NAME%.Infra\Seguranca\JwtService.cs
+echo     public class JwtService {>> src\%PROJECT_NAME%.Infra\Seguranca\JwtService.cs
+echo         private readonly string _secret;>> src\%PROJECT_NAME%.Infra\Seguranca\JwtService.cs
+echo         private readonly string _expDate;>> src\%PROJECT_NAME%.Infra\Seguranca\JwtService.cs
+echo         public JwtService(string secret, string expDate) {>> src\%PROJECT_NAME%.Infra\Seguranca\JwtService.cs
+echo             _secret = secret;>> src\%PROJECT_NAME%.Infra\Seguranca\JwtService.cs
+echo             _expDate = expDate;>> src\%PROJECT_NAME%.Infra\Seguranca\JwtService.cs
+echo         }>> src\%PROJECT_NAME%.Infra\Seguranca\JwtService.cs
+echo         public string GenerateSecurityToken(string email) {>> src\%PROJECT_NAME%.Infra\Seguranca\JwtService.cs
+echo             var tokenHandler = new JwtSecurityTokenHandler();>> src\%PROJECT_NAME%.Infra\Seguranca\JwtService.cs
+echo             var key = Encoding.ASCII.GetBytes(_secret);>> src\%PROJECT_NAME%.Infra\Seguranca\JwtService.cs
+echo             var tokenDescriptor = new SecurityTokenDescriptor {>> src\%PROJECT_NAME%.Infra\Seguranca\JwtService.cs
+echo                 Subject = new ClaimsIdentity(new[] { new Claim(ClaimTypes.Email, email) }),>> src\%PROJECT_NAME%.Infra\Seguranca\JwtService.cs
+echo                 Expires = DateTime.UtcNow.AddMinutes(double.Parse(_expDate)),>> src\%PROJECT_NAME%.Infra\Seguranca\JwtService.cs
+echo                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)>> src\%PROJECT_NAME%.Infra\Seguranca\JwtService.cs
+echo             };>> src\%PROJECT_NAME%.Infra\Seguranca\JwtService.cs
+echo             var token = tokenHandler.CreateToken(tokenDescriptor);>> src\%PROJECT_NAME%.Infra\Seguranca\JwtService.cs
+echo             return tokenHandler.WriteToken(token);>> src\%PROJECT_NAME%.Infra\Seguranca\JwtService.cs
+echo         }>> src\%PROJECT_NAME%.Infra\Seguranca\JwtService.cs
+echo     }>> src\%PROJECT_NAME%.Infra\Seguranca\JwtService.cs
+echo }>> src\%PROJECT_NAME%.Infra\Seguranca\JwtService.cs
 
 :: Configurando o appsettings.json com a conexão do banco de dados MySQL e configuração JWT
-echo Configurando o appsettings.json com a conexão do banco de dados MySQL e configuração JWT
-(
-    echo {
-    echo   "ConnectionStrings": {
-    echo     "DefaultConnection": "Server=localhost;Database=%PROJECT_NAME%;User=%DB_USER%;Password=%DB_PASSWORD%"
-    echo   },
-    echo   "Jwt": {
-    echo     "SecretKey": "YourSecretKey",
-    echo     "ExpiryMinutes": "60"
-    echo   },
-    echo   "Logging": {
-    echo     "LogLevel": {
-    echo       "Default": "Information",
-    echo       "Microsoft.AspNetCore": "Warning"
-    echo     }
-    echo   },
-    echo   "AllowedHosts": "*"
-    echo }
-) > src\%PROJECT_NAME%.API\appsettings.json 2>> error.log
-if errorlevel 1 (
-    echo Erro ao configurar o appsettings.json
-    exit /b 1
-)
+echo {> src\%PROJECT_NAME%.API\appsettings.json
+echo   "ConnectionStrings": {>> src\%PROJECT_NAME%.API\appsettings.json
+echo     "DefaultConnection": "Server=localhost;Database=%PROJECT_NAME%;User=%DB_USER%;Password=%DB_PASSWORD%;">> src\%PROJECT_NAME%.API\appsettings.json
+echo   },>> src\%PROJECT_NAME%.API\appsettings.json
+echo   "Jwt": {>> src\%PROJECT_NAME%.API\appsettings.json
+echo     "SecretKey": "YourSecretKey",>> src\%PROJECT_NAME%.API\appsettings.json
+echo     "ExpiryMinutes": "60">> src\%PROJECT_NAME%.API\appsettings.json
+echo   },>> src\%PROJECT_NAME%.API\appsettings.json
+echo   "Logging": {>> src\%PROJECT_NAME%.API\appsettings.json
+echo     "LogLevel": {>> src\%PROJECT_NAME%.API\appsettings.json
+echo       "Default": "Information",>> src\%PROJECT_NAME%.API\appsettings.json
+echo       "Microsoft.AspNetCore": "Warning">> src\%PROJECT_NAME%.API\appsettings.json
+echo     }>> src\%PROJECT_NAME%.API\appsettings.json
+echo   },>> src\%PROJECT_NAME%.API\appsettings.json
+echo   "AllowedHosts": "*" >> src\%PROJECT_NAME%.API\appsettings.json
+echo }>> src\%PROJECT_NAME%.API\appsettings.json
 
 :: Rodar a migration inicial
-echo Rodando a migration inicial
-cd /d "%PROJECT_DIR%\%PROJECT_NAME%" || exit /b 1
-dotnet ef migrations add CriaTabelaUsuario --project src\%PROJECT_NAME%.Infra --startup-project src\%PROJECT_NAME%.API 2>> error.log
-if errorlevel 1 (
-    echo Erro ao rodar a migration inicial
-    exit /b 1
-)
-dotnet ef database update --project src\%PROJECT_NAME%.Infra --startup-project src\%PROJECT_NAME%.API 2>> error.log
-if errorlevel 1 (
-    echo Erro ao atualizar o banco de dados
-    exit /b 1
-)
+cd /d "%PROJECT_DIR%\%PROJECT_NAME%"
+dotnet ef migrations add CriaTabelaUsuario --project src\%PROJECT_NAME%.Infra --startup-project src\%PROJECT_NAME%.API
+dotnet ef database update --project src\%PROJECT_NAME%.Infra --startup-project src\%PROJECT_NAME%.API
 
 :: Voltando para o diretório do projeto
-echo Voltando para o diretório do projeto
-cd /d "%PROJECT_DIR%\%PROJECT_NAME%" || exit /b 1
+cd /d "%PROJECT_DIR%\%PROJECT_NAME%"
 
 :: Restaurando os pacotes (ignorando feeds com erro)
-echo Restaurando os pacotes (ignorando feeds com erro)
-dotnet restore --ignore-failed-sources --disable-parallel 2>> error.log
-if errorlevel 1 (
-    echo Erro ao restaurar os pacotes
-    exit /b 1
-)
+dotnet restore --ignore-failed-sources --disable-parallel
 
 echo Estrutura do projeto criada com sucesso em: %PROJECT_DIR%\%PROJECT_NAME%
 pause
